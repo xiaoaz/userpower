@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="userpower-web:war">
+    <output-path>$PROJECT_DIR$/userpower-web/target</output-path>
+    <root id="archive" name="userpower-web-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="userpower-web:war exploded" />
+    </root>
+  </artifact>
+</component>

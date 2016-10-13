@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/userpower.iml" filepath="$PROJECT_DIR$/userpower.iml" />
+      <module fileurl="file://$PROJECT_DIR$/userpower-dao/userpower-dao.iml" filepath="$PROJECT_DIR$/userpower-dao/userpower-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/userpower-web/userpower-web.iml" filepath="$PROJECT_DIR$/userpower-web/userpower-web.iml" />
+    </modules>
+  </component>
+</project>
