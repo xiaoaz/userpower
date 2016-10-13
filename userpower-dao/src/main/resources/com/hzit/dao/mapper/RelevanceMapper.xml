@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hzit.dao.mapper.RelevanceMapper">
+
+    <sql id="relevanceBaseColumnSql">
+        id,
+        model_id,
+        role_id,
+        creat_name,
+        creat_time,
+        update_name,
+        update_time
+    </sql>
+
+    <sql id="relevanceBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.id)">
+                    id = #{map.id}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.modelId)">
+                    AND model_id = #{map.modelId}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.roleId)">
+                    AND role_id = #{map.roleId}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.creatName)">
+                    AND creat_name = #{map.creatName}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.creatTime)">
+                    AND creat_time = #{map.creatTime}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateName)">
+                    AND update_name = #{map.updateName}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateTime)">
+                    AND update_time = #{map.updateTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <insert id="insertRelevance" parameterType="com.hzit.dao.entity.Relevance">
+        INSERT INTO relevance(
+        <include refid="relevanceBaseColumnSql"/>
+        )VALUES(
+            #{id},
+            #{modelId},
+            #{roleId},
+            #{creatName},
+            #{creatTime},
+            #{updateName},
+            #{updateTime}
+        )
+    </insert>
+
+    
+    <delete id="deleteRelevanceById" parameterType="Integer">
+        DELETE FROM relevance WHERE id = #{id}
+    </delete>
+
+    <update id="updateRelevance" parameterType="com.hzit.dao.entity.Relevance">
+        UPDATE relevance
+        <set>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(modelId)">
+                model_id = #{modelId} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(roleId)">
+                role_id = #{roleId} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(creatName)">
+                creat_name = #{creatName} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(creatTime)">
+                creat_time = #{creatTime} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateName)">
+                update_name = #{updateName} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateTime)">
+                update_time = #{updateTime} ,
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="searchRelevanceByParams" parameterType="map" resultMap="relevanceMap">
+        SELECT
+        <include refid="relevanceBaseColumnSql"/>
+        FROM relevance
+        <include refid="relevanceBaseWhereSql"/>
+    </select>
+
+    <resultMap type="com.hzit.dao.entity.Relevance" id="relevanceMap">
+        <id column="id" property="id"/>
+        <result column="model_id" property="modelId"/>
+        <result column="role_id" property="roleId"/>
+        <result column="creat_name" property="creatName"/>
+        <result column="creat_time" property="creatTime"/>
+        <result column="update_name" property="updateName"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+</mapper>

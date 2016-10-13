@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hzit.dao.mapper.RoleMapper">
+
+    <sql id="roleBaseColumnSql">
+        role_id,
+        role_name,
+        role_descible,
+        isdelete,
+        creat_name,
+        creat_time,
+        update_name,
+        update_time
+    </sql>
+
+    <sql id="roleBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.roleId)">
+                    role_id = #{map.roleId}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.roleName)">
+                    AND role_name = #{map.roleName}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.roleDescible)">
+                    AND role_descible = #{map.roleDescible}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.isdelete)">
+                    AND isdelete = #{map.isdelete}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.creatName)">
+                    AND creat_name = #{map.creatName}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.creatTime)">
+                    AND creat_time = #{map.creatTime}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateName)">
+                    AND update_name = #{map.updateName}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateTime)">
+                    AND update_time = #{map.updateTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <insert id="insertRole" parameterType="com.hzit.dao.entity.Role">
+        INSERT INTO role(
+        <include refid="roleBaseColumnSql"/>
+        )VALUES(
+            #{roleId},
+            #{roleName},
+            #{roleDescible},
+            #{isdelete},
+            #{creatName},
+            #{creatTime},
+            #{updateName},
+            #{updateTime}
+        )
+    </insert>
+
+    
+    <delete id="deleteRoleByRoleId" parameterType="Integer">
+        DELETE FROM role WHERE role_id = #{roleId}
+    </delete>
+
+    <update id="updateRole" parameterType="com.hzit.dao.entity.Role">
+        UPDATE role
+        <set>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(roleName)">
+                role_name = #{roleName} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(roleDescible)">
+                role_descible = #{roleDescible} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(isdelete)">
+                isdelete = #{isdelete} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(creatName)">
+                creat_name = #{creatName} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(creatTime)">
+                creat_time = #{creatTime} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateName)">
+                update_name = #{updateName} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateTime)">
+                update_time = #{updateTime} ,
+            </if>
+        </set>
+        WHERE role_id = #{roleId}
+    </update>
+
+    <select id="searchRoleByParams" parameterType="map" resultMap="roleMap">
+        SELECT
+        <include refid="roleBaseColumnSql"/>
+        FROM role
+        <include refid="roleBaseWhereSql"/>
+    </select>
+
+    <resultMap type="com.hzit.dao.entity.Role" id="roleMap">
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_descible" property="roleDescible"/>
+        <result column="isdelete" property="isdelete"/>
+        <result column="creat_name" property="creatName"/>
+        <result column="creat_time" property="creatTime"/>
+        <result column="update_name" property="updateName"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+</mapper>
